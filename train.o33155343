@@ -1,0 +1,70 @@
+Loading GCC
+Sourcing Conda
+Running trainscript
+Setting MPL backend
+agg
+agg
+[Errno 2] No such file or directory: '/dls/science/groups/i04-1/conor_dev/pandda_nn/model_params_48_0.5_classifier_3_3_cluster_none.pt'
+ClassifierV3(
+  (conv_1): Sequential(
+    (0): Conv3d(3, 32, kernel_size=(9, 9, 9), stride=(1, 1, 1), padding=(4, 4, 4))
+    (1): BatchNorm3d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (2): ReLU()
+    (3): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (layer_1): ResidualLayerWithDrop(
+    (conv_1): Sequential(
+      (0): Conv3d(32, 64, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (1): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+    (res_1): ResidualBlock(
+      (conv_1): Conv3d(64, 64, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (bn): BatchNorm3d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+    )
+    (drop): Dropout3d(p=0.1)
+    (mp): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (act): ReLU()
+  )
+  (layer_2): ResidualLayerWithDrop(
+    (conv_1): Sequential(
+      (0): Conv3d(64, 128, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (1): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+    (res_1): ResidualBlock(
+      (conv_1): Conv3d(128, 128, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (bn): BatchNorm3d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+    )
+    (drop): Dropout3d(p=0.1)
+    (mp): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (act): ReLU()
+  )
+  (layer_3): ResidualLayerWithDrop(
+    (conv_1): Sequential(
+      (0): Conv3d(128, 256, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (1): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (2): ReLU()
+    )
+    (res_1): ResidualBlock(
+      (conv_1): Conv3d(256, 256, kernel_size=(3, 3, 3), stride=(1, 1, 1), padding=(1, 1, 1))
+      (bn): BatchNorm3d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (act): ReLU()
+    )
+    (drop): Dropout3d(p=0.1)
+    (mp): MaxPool3d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+    (act): ReLU()
+  )
+  (fc1): Sequential(
+    (0): Linear(in_features=6912, out_features=64, bias=True)
+    (1): ReLU()
+  )
+  (fc2): Sequential(
+    (0): Linear(in_features=64, out_features=2, bias=True)
+  )
+  (act): Softmax()
+)
+Beginning training
+Beginning epoch: 0

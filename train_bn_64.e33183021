@@ -1,0 +1,24 @@
+	
+
+	 Welcome to the DLS compute cluster
+
+	 For MPI jobs, please use 'module load openmpi'.
+
+	 If using a different OpenMPI installation,
+	 or manually specifying path to OpenMPI, option
+	 '-mca orte_forward_job_control 1'
+	 must be added to mpirun to ensure cluster functionality.
+
+	 To use a GPU node, the consumable 'gpu' must be requested,
+	 including the number of GPUs required (e.g. 'qrsh -l gpu=2').
+
+	 Grid Engine documentation (e.g. User Guide) can be found in
+	 /dls_sw/cluster/docs and on Confluence.
+
+	 Please report any issues to linux.manager@diamond.ac.uk
+
+Loading 64-bit gcc, version 4.9.3
+If there are any problems, please contact scientificsoftware@diamond.ac.uk
+sys:1: DtypeWarning: Columns (14,15) have mixed types. Specify dtype option on import or set low_memory=False.
+/dls/science/groups/i04-1/conor_dev/pandda_nn/frag_nn/pytorch/network.py:1178: UserWarning: Implicit dimension choice for softmax has been deprecated. Change the call to include dim=X as an argument.
+  return self.act(x)
