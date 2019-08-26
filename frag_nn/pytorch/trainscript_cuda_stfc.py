@@ -90,6 +90,8 @@ if __name__ == "__main__":
                                                                                   transforms,
                                                                             filters)
 
+    print("State dict is at: {}".format(state_dict_file))
+
 
     # Write out CUDA device
     f = open(output_file, "w")
