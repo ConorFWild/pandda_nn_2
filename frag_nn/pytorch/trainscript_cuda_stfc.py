@@ -117,7 +117,7 @@ if __name__ == "__main__":
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
                                                    batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=16)
+                                                   num_workers=1)
 
     # Define Model
 
@@ -149,7 +149,7 @@ if __name__ == "__main__":
     for epoch in range(num_epochs):
         print("Beginning epoch: {}".format(epoch))
         for i, data in enumerate(train_dataloader):
-            print("Epoch: {}; iteration: {}".format(epoch, i))
+            # print("Epoch: {}; iteration: {}".format(epoch, i))
             # get the inputs; data is a list of [inputs, labels]
             x = data["data"]
             y = data["annotation"]
@@ -174,7 +174,7 @@ if __name__ == "__main__":
             running_loss += loss.item()
 
             # print statistics per epoch
-            if i % 30 == 29:  # print every 100 mini-batches
+            if i % 50 == 49:  # print every 100 mini-batches
                 f = open(output_file, "a")
                 f.write("Loss at epoch {}, iteration {} is {}".format(epoch,
                                                                     i,
@@ -193,7 +193,7 @@ if __name__ == "__main__":
                                                                     i,
                                                                     running_loss / i) + "\n")
 
-            if i % 100 == 99:  # print every 100 mini-batches
+            if i % 2000 == 1999:  # print every 100 mini-batches
                 f = open(output_file, "a")
                 f.write("Checkpointing model" + "\n")
                 torch.save(model.state_dict(), state_dict_file)

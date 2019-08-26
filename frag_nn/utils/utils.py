@@ -56,8 +56,6 @@ def cart_to_grid(centroid, xmap):
 
 def load_xmap_from_ccp4(event_map_path):
 
-    print(event_map_path)
-
     xmap = clipper.Xmap_float()
     # print(dir(clipper))
     ccp4_file = clipper.CCP4MAPfile()
