@@ -156,8 +156,6 @@ if __name__ == "__main__":
             y = y.view(-1, 2)
 
             # Set to cuda
-            x.cuda()
-            y.cuda()
             x_c = x.to("cuda")
             y_c = y.to("cuda")
 
@@ -169,6 +167,8 @@ if __name__ == "__main__":
             loss = criterion(outputs, y_c)
             loss.backward()
             optimizer.step()
+
+            print(outputs)
 
             # RECORD LOSS
             running_loss += loss.item()
