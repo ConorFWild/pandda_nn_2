@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     # Define optimizer
     optimizer = optim.Adam(model.parameters(),
-                           lr=0.0001)
+                           lr=0.00001)
 
     # Fit Model
 
@@ -179,15 +179,15 @@ if __name__ == "__main__":
                 f.write("Loss at epoch {}, iteration {} is {}".format(epoch,
                                                                     i,
                                                                     running_loss / i) + "\n")
-                f.write("{}".format([x for x in outputs]) + "\n")
-                f.write("{}".format([x for x in y]) + "\n")
+                f.write("{}".format([x.to("cpu").numpy() for x in outputs]) + "\n")
+                f.write("{}".format([x.to("cpu").numpy() for x in y]) + "\n")
                 f.write("#################################################" + "\n")
                 f.close()
                 print("Loss at epoch {}, iteration {} is {}".format(epoch,
                                                                     i,
                                                                     running_loss / i) + "\n")
-                print("{}".format([x for x in outputs]) + "\n")
-                print("{}".format([x for x in y]) + "\n")
+                print("{}".format([x.to("cpu").numpy() for x in outputs]) + "\n")
+                print("{}".format([x.to("cpu").numpy() for x in y]) + "\n")
                 print("#################################################" + "\n")
 
 
