@@ -119,7 +119,7 @@ if __name__ == "__main__":
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
                                                    batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=32)
+                                                   num_workers=48)
 
     # Define Model
 
@@ -174,7 +174,7 @@ if __name__ == "__main__":
             running_loss += loss.item()
 
             # print statistics per epoch
-            if i % 50 == 49:  # print every 100 mini-batches
+            if i % 100 == 99:  # print every 100 mini-batches
                 f = open(output_file, "a")
                 f.write("Loss at epoch {}, iteration {} is {}".format(epoch,
                                                                     i,
