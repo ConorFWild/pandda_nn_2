@@ -1,0 +1,40 @@
+Cuda is available?: True
+Cuda device is: Tesla P100-PCIE-16GB
+Loss at epoch 0, iteration 29 is 2.8761854377286187
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 0.,  1.])]
+#################################################
+Loss at epoch 0, iteration 59 is 3.2870078591977134
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 0.,  1.])]
+#################################################
+Loss at epoch 0, iteration 89 is 2.799949513392502
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Checkpointing model
+Loss at epoch 0, iteration 119 is 3.4872406360481967
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Loss at epoch 0, iteration 149 is 4.083213330115248
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Loss at epoch 0, iteration 179 is 3.8619656462909124
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Checkpointing model
+Loss at epoch 0, iteration 209 is 3.572028199451392
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Loss at epoch 0, iteration 239 is 3.586100333405339
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 1.,  0.])]
+#################################################
+Loss at epoch 0, iteration 269 is 3.597033701421603
+[tensor([ 1.,  0.], device='cuda:0')]
+[tensor([ 0.,  1.])]
+#################################################

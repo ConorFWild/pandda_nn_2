@@ -124,6 +124,7 @@ if __name__ == "__main__":
     model = ClassifierV5(filters,
                          grid_dimension=grid_size)
     model.cuda()
+    model_c = model.to("cuda")
 
     try:
         model.load_state_dict(torch.load(state_dict_file))
@@ -157,13 +158,15 @@ if __name__ == "__main__":
             # Set to cuda
             x.cuda()
             y.cuda()
+            x_c = x.to("cuda")
+            y_c = y.to("cuda")
 
             # zero the parameter gradients
             optimizer.zero_grad()
 
             # forward + backward + optimize
-            outputs = model(x)
-            loss = criterion(outputs, y)
+            outputs = model_c(x_c)
+            loss = criterion(outputs, y_c)
             loss.backward()
             optimizer.step()
 
