@@ -119,7 +119,7 @@ if __name__ == "__main__":
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
                                                    batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=16)
+                                                   num_workers=32)
 
     # Define Model
 
