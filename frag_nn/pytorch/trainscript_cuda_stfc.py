@@ -119,7 +119,7 @@ if __name__ == "__main__":
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
                                                    batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=1)
+                                                   num_workers=16)
 
     # Define Model
 
@@ -169,8 +169,6 @@ if __name__ == "__main__":
             loss = criterion(outputs, y_c)
             loss.backward()
             optimizer.step()
-
-            print(outputs)
 
             # RECORD LOSS
             running_loss += loss.item()
