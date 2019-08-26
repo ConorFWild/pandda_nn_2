@@ -45,7 +45,7 @@ import torch.optim as optim
 from frag_nn.pytorch.network import ClassifierV5
 from frag_nn.pytorch.dataset import EventDataset
 from frag_nn.pytorch.dataset import OrthogonalGrid
-from frag_nn.pytorch.dataset import GetRandomisedLocation, GetRandomisedRotation
+from frag_nn.pytorch.dataset import GetRandomisedLocation, GetRandomisedRotation, SetRoot
 from frag_nn.pytorch.dataset import GetAnnotationClassifier, GetDataRefMove, GetDataRefMoveZ
 
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     config_path = "/home/zoh22914/pandda_nn_2/frag_nn/params.ini"
     grid_size = 48
     grid_step = 0.5
-    filters = 48
+    filters = 64
 
     # Get Config
     conf = configparser.ConfigParser()
@@ -107,17 +107,17 @@ if __name__ == "__main__":
 
     dataset_train = EventDataset(events=events_train,
                                  transforms_record=[GetRandomisedLocation(base_trans_max=4.0, secondary_trans_max=0.0),
-                                                    GetRandomisedRotation(max_rot=0.0)],
+                                                    GetRandomisedRotation(max_rot=0.0),
+                                                    SetRoot("/data/data")],
                                  get_annotation=GetAnnotationClassifier(),
-                                 get_data=GetDataRefMoveZ(grid)
+                                 get_data=GetDataRefMoveZ(grid),
                                  )
 
     # Create Dataloader
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
                                                    batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=16,
-                                                   root="/data/data")
+                                                   num_workers=16)
 
     # Define Model
 
@@ -180,12 +180,22 @@ if __name__ == "__main__":
                 f.write("{}".format([x for x in y]) + "\n")
                 f.write("#################################################" + "\n")
                 f.close()
+                print("Loss at epoch {}, iteration {} is {}".format(epoch,
+                                                                    i,
+                                                                    running_loss / i) + "\n")
+                print("{}".format([x for x in outputs]) + "\n")
+                print("{}".format([x for x in y]) + "\n")
+                print("#################################################" + "\n")
+                print("Loss at epoch {}, iteration {} is {}".format(epoch,
+                                                                    i,
+                                                                    running_loss / i) + "\n")
 
             if i % 100 == 99:  # print every 100 mini-batches
                 f = open(output_file, "a")
                 f.write("Checkpointing model" + "\n")
                 torch.save(model.state_dict(), state_dict_file)
                 f.close()
+                print("Checkpointing model" + "\n")
 
         f = open(output_file, "a")
         f.write("###################################" + "\n")

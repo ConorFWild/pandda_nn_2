@@ -304,6 +304,7 @@ def get_ccp4_label(record, grid_size=10, grid_step=0.5):
 
     return x, y
 
+
 def get_ccp4_label_v2(record, grid_size=10, grid_step=0.5):
 
     # print(record)
@@ -363,6 +364,7 @@ def get_ccp4_label_v2(record, grid_size=10, grid_step=0.5):
     y = np.array(label, dtype=np.float32)
 
     return x, y
+
 
 class SampleRefMovev2:
 
@@ -511,6 +513,7 @@ class SampleRefMovev2:
                 "replaced": self.replace
                 }
 
+
 # class EDDataset:
 #
 #     def __init__(self, event_table, grid_size = 10, grid_step=0.5):
@@ -565,9 +568,10 @@ class SampleRefMovev2:
 #
 #         return sample
 
+
 class EventDataset(Dataset):
 
-    def __init__(self, events=None, transforms_record=[], get_annotation=None, get_data=None):
+    def __init__(self, events=None, transforms_record=[], get_annotation=None, get_data=None, root=""):
         """
         Args:
             csv_file (string): Path to the csv file with annotations.
@@ -579,7 +583,7 @@ class EventDataset(Dataset):
         self.transforms_record = transforms_record
         self.get_annotation = get_annotation
         self.get_data = get_data
-
+        self.root = ""
 
     def __len__(self):
         return len(self.XChemDataFrame)
@@ -599,7 +603,6 @@ class EventDataset(Dataset):
                 "annotation": annotation}
 
 
-
 class Record:
     def __init__(self, record):
 
@@ -615,6 +618,20 @@ class Record:
         self.annotation = self.record["Ligand Confidence"]
 
 
+class SetRoot:
+    def __init__(self, root=""):
+        self.root = root
+
+    def __call__(self, record):
+        ground_map_path = record.ground_map_path()
+        record.ground_map_path = lambda: self.root + ground_map_path
+
+        z_map_path = record.z_map_path()
+        record.z_map_path = lambda: self.root + z_map_path
+
+        event_map_path = record.event_map_path()
+        record.event_map_path = lambda: self.root + event_map_path
+        return record
 
 
 class GetAnnotationRandomlyReplaced:
