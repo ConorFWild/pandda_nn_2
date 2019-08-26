@@ -53,7 +53,8 @@ import frag_nn.constants as c
 
 if __name__ == "__main__":
     # Args
-    config_path = "/dls/science/groups/i04-1/conor_dev/pandda_nn/frag_nn/params.ini"
+    database_file_string = "/home/zoh22914/pandda_nn_2/new_events_train_no_cheat.csv"
+    config_path = "/home/zoh22914/pandda_nn_2/frag_nn/params.ini"
     grid_size = 48
     grid_step = 0.5
     filters = 48
@@ -71,7 +72,7 @@ if __name__ == "__main__":
     train = "gpu"
     transforms = "rottrans"
 
-    state_dict_dir = "/dls/science/groups/i04-1/conor_dev/pandda_nn/"
+    state_dict_dir = "/home/zoh22914/pandda_nn_2/"
     state_dict_file = state_dict_dir + "model_params_{}_{}_{}_{}_{}_{}_{}_{}.pt".format(grid_size,
                                                                                   grid_step,
                                                                                   network_type,
@@ -91,13 +92,13 @@ if __name__ == "__main__":
 
 
     # Write out CUDA device
-    f = open(output_file)
+    f = open(output_file, "w")
     f.write("Cuda is available?: {}\n".format(torch.cuda.is_available()))
     f.write("Cuda device is: {}\n".format(torch.cuda.get_device_name(0)))
     f.close()
 
     # Load Database
-    events_train = pd.read_csv("/dls/science/groups/i04-1/conor_dev/pandda_nn/new_events_train.csv")
+    events_train = pd.read_csv(database_file_string)
 
     # Create Dataset
 
@@ -113,9 +114,10 @@ if __name__ == "__main__":
 
     # Create Dataloader
     train_dataloader = torch.utils.data.DataLoader(dataset_train,
-                                                   batch_size=16,
+                                                   batch_size=1,
                                                    shuffle=True,
-                                                   num_workers=16)
+                                                   num_workers=16,
+                                                   root="/data/data")
 
     # Define Model
 
@@ -135,7 +137,7 @@ if __name__ == "__main__":
 
     # Define optimizer
     optimizer = optim.Adam(model.parameters(),
-                           lr=0.0001)
+                           lr=0.001)
 
     # Fit Model
 

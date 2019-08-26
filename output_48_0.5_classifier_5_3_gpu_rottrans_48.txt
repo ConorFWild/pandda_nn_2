@@ -1,0 +1,2 @@
+Cuda is available?: True
+Cuda device is: Tesla P100-PCIE-16GB
