@@ -138,7 +138,7 @@ if __name__ == "__main__":
 
     # Define optimizer
     optimizer = optim.Adam(model.parameters(),
-                           lr=0.001)
+                           lr=0.0001)
 
     # Fit Model
 
@@ -189,9 +189,7 @@ if __name__ == "__main__":
                 print("{}".format([x for x in outputs]) + "\n")
                 print("{}".format([x for x in y]) + "\n")
                 print("#################################################" + "\n")
-                print("Loss at epoch {}, iteration {} is {}".format(epoch,
-                                                                    i,
-                                                                    running_loss / i) + "\n")
+
 
             if i % 2000 == 1999:  # print every 100 mini-batches
                 f = open(output_file, "a")
