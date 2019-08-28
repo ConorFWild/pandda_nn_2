@@ -1219,8 +1219,15 @@ class ClassifierV6(nn.Module):
                                          nn.Dropout3d(p=0.5)
                                          )
 
-        size_after_convs = int((grid_dimension/(2**3))**3)
-        n_in = filters*4*size_after_convs
+        self.conv_pool_4 = nn.Sequential(nn.Conv3d(filters * 4, filters * 8, kernel_size=3, stride=1, padding=1),
+                                         nn.BatchNorm3d(filters * 8),
+                                         nn.MaxPool3d(kernel_size=2, stride=2),
+                                         nn.ReLU(),
+                                         nn.Dropout3d(p=0.5)
+                                         )
+
+        size_after_convs = int((grid_dimension/(2**4))**3)
+        n_in = filters*8*size_after_convs
 
         self.fc1 = nn.Sequential(nn.Linear(n_in, int(n_in/4)),
                                            nn.ReLU())
@@ -1235,6 +1242,8 @@ class ClassifierV6(nn.Module):
         x = self.conv_pool_2(x)
 
         x = self.conv_pool_3(x)
+
+        x = self.conv_pool_4(x)
 
         x = x.view(-1, (x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4]))
 
