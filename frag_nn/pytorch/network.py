@@ -266,7 +266,6 @@ class ResidualBlock(nn.Module):
         residual = self.conv_1(x)
         residual = self.bn(residual)
 
-
         x = x + residual
 
         return self.act(x)
@@ -281,7 +280,7 @@ class ResidualLayer(nn.Module):
 
         self.conv_1 = nn.Sequential(nn.Conv3d(filters_in, filters_out, kernel_size=3, stride=1, padding=1),
                                     nn.BatchNorm3d(filters_out),
-                                 nn.ReLU())
+                                    nn.ReLU())
 
         self.res_1 = ResidualBlock(filters_out)
         # self.res_2 = ResidualBlock(filters_out)
@@ -355,6 +354,7 @@ class GNINA_regressor_v4(nn.Module):
 
         return self.act(x)
 
+
 class ResidualLayerNoDrop(nn.Module):
 
     def __init__(self, filters_in, filters_out):
@@ -380,6 +380,7 @@ class ResidualLayerNoDrop(nn.Module):
         x = self.mp(x)
 
         return self.act(x)
+
 
 class GNINA_regressor_v5(nn.Module):
     """
@@ -444,6 +445,7 @@ class GNINA_regressor_v5(nn.Module):
 
         return self.act(x)
 
+
 class GNINA_regressor_v6(nn.Module):
     """
     CNN for recognising interesting ligands
@@ -507,6 +509,7 @@ class GNINA_regressor_v6(nn.Module):
 
         return self.act(x)
 
+
 class ResidualLayerWithDrop(nn.Module):
 
     def __init__(self, filters_in, filters_out, training=True):
@@ -537,6 +540,7 @@ class ResidualLayerWithDrop(nn.Module):
         x = self.mp(x)
 
         return self.act(x)
+
 
 class GNINA_regressor_v7(nn.Module):
     """
@@ -1120,6 +1124,7 @@ class ClassifierV4(nn.Module):
 
         return self.act(x)
 
+
 class ClassifierV5(nn.Module):
     """
     CNN for recognising interesting ligands
@@ -1146,7 +1151,6 @@ class ClassifierV5(nn.Module):
         self.layer_1 = ResidualLayerWithDrop(filters, filters * 2, training)
         self.layer_2 = ResidualLayerWithDrop(filters*2, filters*4, training)
         self.layer_3 = ResidualLayerWithDrop(filters*4, filters*8, training)
-
 
         size_after_convs = int((grid_dimension/(2**4))**3)
         n_in = filters*8*size_after_convs

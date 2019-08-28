@@ -71,24 +71,28 @@ if __name__ == "__main__":
     dataset_version = 3
     train = "gpu"
     transforms = "rottrans"
+    num_epochs = 1
+
 
     state_dict_dir = "/home/zoh22914/pandda_nn_2/"
-    state_dict_file = state_dict_dir + "model_params_{}_{}_{}_{}_{}_{}_{}_{}.pt".format(grid_size,
+    state_dict_file = state_dict_dir + "model_params_{}_{}_{}_{}_{}_{}_{}_{}_{}.pt".format(grid_size,
                                                                                   grid_step,
                                                                                   network_type,
                                                                                   network_version,
                                                                                   dataset_version,
                                                                                   train,
                                                                                   transforms,
-                                                                                     filters)
-    output_file = state_dict_dir + "output_{}_{}_{}_{}_{}_{}_{}_{}.txt".format(grid_size,
+                                                                                     filters,
+                                                                                        num_epochs)
+    output_file = state_dict_dir + "output_{}_{}_{}_{}_{}_{}_{}_{}_{}.txt".format(grid_size,
                                                                                   grid_step,
                                                                                   network_type,
                                                                                   network_version,
                                                                                   dataset_version,
                                                                                   train,
                                                                                   transforms,
-                                                                            filters)
+                                                                            filters,
+                                                                               num_epochs)
 
     print("State dict is at: {}".format(state_dict_file))
 
@@ -144,7 +148,6 @@ if __name__ == "__main__":
 
     # Fit Model
 
-    num_epochs = 500
     running_loss = 0
 
     print("Beginning training")
@@ -207,4 +210,5 @@ if __name__ == "__main__":
         running_loss = 0.0
         f.close()
 
+        print("Checkpointing model" + "\n")
         torch.save(model.state_dict(), state_dict_file)
