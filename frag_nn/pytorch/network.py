@@ -524,7 +524,7 @@ class ResidualLayerWithDrop(nn.Module):
         self.res_1 = ResidualBlock(filters_out)
         # self.res_2 = ResidualBlock(filters_out)
 
-        self.drop = nn.Dropout3d(p=0.1)
+        self.drop = nn.Dropout3d(p=0.5)
 
         self.mp = nn.MaxPool3d(kernel_size=2, stride=2)
         self.do_drop = training
