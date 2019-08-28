@@ -1205,14 +1205,14 @@ class ClassifierV6(nn.Module):
                                          nn.Dropout3d(p=0.5)
                                          )
 
-        self.conv_pool_2 = nn.Sequential(nn.Conv3d(filters, filters * 2, kernel_size=9, stride=1, padding=4),
+        self.conv_pool_2 = nn.Sequential(nn.Conv3d(filters, filters * 2, kernel_size=3, stride=1, padding=1),
                                          nn.BatchNorm3d(filters),
                                          nn.MaxPool3d(kernel_size=2, stride=2),
                                          nn.ReLU(),
                                          nn.Dropout3d(p=0.5)
                                          )
 
-        self.conv_pool_3 = nn.Sequential(nn.Conv3d(filters * 2, filters * 4, kernel_size=9, stride=1, padding=4),
+        self.conv_pool_3 = nn.Sequential(nn.Conv3d(filters * 2, filters * 4, kernel_size=3, stride=1, padding=1),
                                          nn.BatchNorm3d(filters),
                                          nn.MaxPool3d(kernel_size=2, stride=2),
                                          nn.ReLU(),
