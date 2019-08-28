@@ -1180,3 +1180,66 @@ class ClassifierV5(nn.Module):
         x = self.fc2(x)
 
         return self.act(x)
+
+
+class ClassifierV6(nn.Module):
+    """
+    CNN for recognising interesting ligands
+    1x introductory convolution, 3x residual layers of 2, 2x
+    No dropout
+    No global pooling
+    """
+
+    def __init__(self, filters, grid_dimension=32, training=True):
+        # Instatiate Network layers
+
+        super().__init__()
+
+        self.filters = filters
+        self.grid_size = grid_dimension
+
+        self.conv_pool_1 = nn.Sequential(nn.Conv3d(3, filters, kernel_size=9, stride=1, padding=4),
+                                         nn.BatchNorm3d(filters),
+                                         nn.MaxPool3d(kernel_size=2, stride=2),
+                                         nn.ReLU(),
+                                         nn.Dropout3d(p=0.5)
+                                         )
+
+        self.conv_pool_2 = nn.Sequential(nn.Conv3d(filters, filters * 2, kernel_size=9, stride=1, padding=4),
+                                         nn.BatchNorm3d(filters),
+                                         nn.MaxPool3d(kernel_size=2, stride=2),
+                                         nn.ReLU(),
+                                         nn.Dropout3d(p=0.5)
+                                         )
+
+        self.conv_pool_3 = nn.Sequential(nn.Conv3d(filters * 2, filters * 4, kernel_size=9, stride=1, padding=4),
+                                         nn.BatchNorm3d(filters),
+                                         nn.MaxPool3d(kernel_size=2, stride=2),
+                                         nn.ReLU(),
+                                         nn.Dropout3d(p=0.5)
+                                         )
+
+        size_after_convs = int((grid_dimension/(2**3))**3)
+        n_in = filters*4*size_after_convs
+
+        self.fc1 = nn.Sequential(nn.Linear(n_in, int(n_in/4)),
+                                           nn.ReLU())
+        self.fc2 = nn.Sequential(nn.Linear(int(n_in/4), 2))
+
+        self.act = nn.Softmax()
+
+    def forward(self, x):
+
+        x = self.conv_pool_1(x)
+
+        x = self.conv_pool_2(x)
+
+        x = self.conv_pool_3(x)
+
+        x = x.view(-1, (x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4]))
+
+        x = self.fc1(x)
+
+        x = self.fc2(x)
+
+        return self.act(x)
