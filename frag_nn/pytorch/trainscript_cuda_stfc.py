@@ -42,7 +42,7 @@ import clipper_python as clipper
 import torch.nn as nn
 import torch.optim as optim
 
-from frag_nn.pytorch.network import ClassifierV5
+from frag_nn.pytorch.network import ClassifierV6
 from frag_nn.pytorch.dataset import EventDataset
 from frag_nn.pytorch.dataset import OrthogonalGrid
 from frag_nn.pytorch.dataset import GetRandomisedLocation, GetRandomisedRotation, SetRoot
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     ds_conf = conf[c.x_chem_database]
 
     network_type = "classifier"
-    network_version = 5
+    network_version = 6
     dataset_version = 3
     train = "gpu"
     transforms = "rottrans"
@@ -127,7 +127,7 @@ if __name__ == "__main__":
 
     # Define Model
 
-    model = ClassifierV5(filters,
+    model = ClassifierV6(filters,
                          grid_dimension=grid_size)
     model.cuda()
     model_c = model.to("cuda")
