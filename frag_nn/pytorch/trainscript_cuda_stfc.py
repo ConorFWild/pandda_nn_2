@@ -71,7 +71,7 @@ if __name__ == "__main__":
     dataset_version = 3
     train = "gpu"
     transforms = "rottrans"
-    num_epochs = 6
+    num_epochs = 12
 
 
     state_dict_dir = "/home/zoh22914/pandda_nn_2/"
