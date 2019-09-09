@@ -152,6 +152,8 @@ class ResNet(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool3d((1, 1, 1))
         self.fc = nn.Linear(512 * block.expansion, num_classes)
 
+        self.act = nn.Softmax()
+
         for m in self.modules():
             if isinstance(m, nn.Conv3d):
                 nn.init.kaiming_normal_(m.weight, mode='fan_out', nonlinearity='relu')
@@ -208,8 +210,8 @@ class ResNet(nn.Module):
         # x = torch.flatten(x, 1)
         x = x.view(-1, x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4])
         x = self.fc(x)
-
-        return x
+        
+        return self.act(x)
 
 
 def _resnet(arch, block, layers, pretrained, progress, **kwargs):
