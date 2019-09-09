@@ -1252,3 +1252,57 @@ class ClassifierV6(nn.Module):
         x = self.fc2(x)
 
         return self.act(x)
+
+class ClassifierV5(nn.Module):
+    """
+    CNN for recognising interesting ligands
+    1x introductory convolution, 3x residual layers of 2, 2x
+    No dropout
+    No global pooling
+    """
+
+    def __init__(self, filters, grid_dimension=32, training=True):
+        # Instatiate Network layers
+
+        super().__init__()
+
+        self.filters = filters
+        self.grid_size = grid_dimension
+
+        self.bn = nn.BatchNorm3d(3)
+
+        self.conv_1 = nn.Sequential(nn.Conv3d(3, filters, kernel_size=9, stride=1, padding=4),
+                                    nn.BatchNorm3d(filters),
+                                    nn.ReLU(),
+                                    nn.MaxPool3d(kernel_size=2, stride=2))
+
+        self.layer_1 = ResidualLayerWithDrop(filters, filters * 2, training)
+        self.layer_2 = ResidualLayerWithDrop(filters*2, filters*4, training)
+        self.layer_3 = ResidualLayerWithDrop(filters*4, filters*8, training)
+
+        size_after_convs = int((grid_dimension/(2**4))**3)
+        n_in = filters*8*size_after_convs
+
+        self.fc1 = nn.Sequential(nn.Linear(n_in, int(n_in/4)),
+                                           nn.ReLU())
+        self.fc2 = nn.Sequential(nn.Linear(int(n_in/4), 2))
+
+        self.act = nn.Softmax()
+
+    def forward(self, x):
+
+        x = self.conv_1(x)
+
+        x = self.layer_1(x)
+
+        x = self.layer_2(x)
+
+        x = self.layer_3(x)
+
+        x = x.view(-1, (x.shape[1]*x.shape[2]*x.shape[3]*x.shape[4]))
+
+        x = self.fc1(x)
+
+        x = self.fc2(x)
+
+        return self.act(x)
