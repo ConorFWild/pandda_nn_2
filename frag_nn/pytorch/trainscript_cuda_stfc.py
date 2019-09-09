@@ -174,7 +174,7 @@ if __name__ == "__main__":
 
             # forward + backward + optimize
             outputs = model_c(x_c)
-            print(outputs.to("cpu").detach().numpy())
+            # print(outputs.to("cpu").detach().numpy())
             loss = criterion(outputs, y_c)
             loss.backward()
             optimizer.step()
