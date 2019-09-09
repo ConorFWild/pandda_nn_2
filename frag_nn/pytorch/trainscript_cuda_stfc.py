@@ -43,6 +43,8 @@ import torch.nn as nn
 import torch.optim as optim
 
 from frag_nn.pytorch.network import ClassifierV6
+from frag_nn.pytorch.resnet_3d import resnet18
+
 from frag_nn.pytorch.dataset import EventDataset
 from frag_nn.pytorch.dataset import OrthogonalGrid
 from frag_nn.pytorch.dataset import GetRandomisedLocation, GetRandomisedRotation, SetRoot
@@ -67,11 +69,11 @@ if __name__ == "__main__":
     ds_conf = conf[c.x_chem_database]
 
     network_type = "classifier"
-    network_version = 6
+    network_version = "resnet18"
     dataset_version = 3
     train = "gpu"
     transforms = "rottrans"
-    num_epochs = 24
+    num_epochs = 10
 
 
     state_dict_dir = "/home/zoh22914/pandda_nn_2/"
@@ -127,9 +129,12 @@ if __name__ == "__main__":
 
     # Define Model
 
-    model = ClassifierV6(filters,
-                         grid_dimension=grid_size)
-    model.cuda()
+    # model = ClassifierV6(filters,
+    #                      grid_dimension=grid_size)
+    model = resnet18(num_classes=2)
+    model.train()
+    print(model)
+    # model.cuda()
     model_c = model.to("cuda")
 
     try:
