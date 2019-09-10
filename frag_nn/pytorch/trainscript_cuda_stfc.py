@@ -44,6 +44,7 @@ import torch.optim as optim
 
 from frag_nn.pytorch.network import ClassifierV6
 from frag_nn.pytorch.resnet_3d import resnet18
+from frag_nn.pytorch.squeezenet_3d import squeezenet1_0
 
 from frag_nn.pytorch.dataset import EventDataset
 from frag_nn.pytorch.dataset import OrthogonalGrid
@@ -69,7 +70,7 @@ if __name__ == "__main__":
     ds_conf = conf[c.x_chem_database]
 
     network_type = "classifier"
-    network_version = "resnet18"
+    network_version = "squeezenet1_0"
     dataset_version = 3
     train = "gpu"
     transforms = "rottrans"
@@ -131,8 +132,9 @@ if __name__ == "__main__":
 
     # model = ClassifierV6(filters,
     #                      grid_dimension=grid_size)
-    model = resnet18(num_classes=2)
-    model.train()
+    # model = resnet18(num_classes=2)
+    model = squeezenet1_0(num_classes=2)
+    model = model.train()
     print(model)
     # model.cuda()
     model_c = model.to("cuda")
