@@ -58,7 +58,7 @@ if __name__ == "__main__":
     # Args
     database_file_string = "/home/zoh22914/pandda_nn_2/new_events_train_no_cheat.csv"
     config_path = "/home/zoh22914/pandda_nn_2/frag_nn/params.ini"
-    grid_size = 48
+    grid_size = 64
     grid_step = 0.5
     filters = 64
 
